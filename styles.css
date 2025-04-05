@@ -23,6 +23,59 @@ body {
   --golden-ratio: 1.6180339887;
 }
 
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24;
+  width: 24px;
+  height: 24px;
+  font-size: 24px;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+ul li {
+  font-size: 1.3rem;
+  position: relative;
+}
+
+ul li a {
+  color: #000000;
+  text-decoration: none;
+  padding: 8px 15px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+
+ul li a:hover {
+  transform: scale(1.1);
+}
+
+ul li a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: #000000;
+  transition: width 0.3s ease, left 0.3s ease;
+}
+
+ul li a:hover::after {
+  width: 100%;
+  left: 0;
+}
+
 .navbar {
   text-decoration: none;
   border: none;
@@ -73,20 +126,20 @@ nav > a:hover {
   margin: 30px 0;
 }
 
-.content > img {
+.header > img {
   width: 100%;
   height: 80vh;
   object-fit: cover;
   object-position: cen;
 }
 
-.content h1,
-.content h4,
-.content a {
+.header h1,
+.header h4,
+.header a {
   padding: 6px 0;
 }
 
-.content a {
+.header a {
   background-color: #000000;
   color: white;
   font-weight: 600;
@@ -102,66 +155,53 @@ nav > a:hover {
   margin: 55px 0;
 }
 
+.information {
+  text-align: center;
+}
+
 .img-effect {
-  min-width: 100%;
   display: flex;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  overflow-y: hidden;
-  white-space: nowrap;
-  scroll-behavior: smooth;
-  padding-bottom: 10px;
-  gap: 20px;
-  align-items: center;
-  justify-content: center;
-  scrollbar-width: thin;
-}
-
-/* Styling agar scrollbar muncul */
-.img-effect::-webkit-scrollbar {
-  height: 8px; /* Pastikan ada ketinggian */
-  background: #f1f1f1;
-}
-
-.img-effect::-webkit-scrollbar-thumb {
-  background: #000000;
-  border-radius: 10px;
-}
-
-.img-effect::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 10px;
+  flex-wrap: wrap; /* Izinkan elemen membungkus ke baris berikutnya */
+  overflow-x: hidden; /* Sembunyikan elemen yang melampaui layar */
+  gap: 20px; /* Jarak antar elemen */
+  padding: 20px;
+  justify-content: center; /* Pusatkan elemen */
 }
 
 .card {
-  min-width: 325px;
-  width: 325px;
-  height: 560px;
+  flex: 1 1 calc(25% - 20px); /* Lebar fleksibel, 4 kartu per baris */
+  max-width: 325px; /* Tetapkan lebar maksimum */
+  min-width: 200px; /* Tetapkan lebar minimum */
+  height: 560px; /* Tinggi tetap */
   border-radius: 16px;
   overflow: hidden;
   position: relative;
   transition: 0.5s;
   cursor: pointer;
-  -webkit-transition: 0.5s;
-  -moz-transition: 0.5s;
-  -ms-transition: 0.5s;
-  -o-transition: 0.5s;
 }
 
 .card img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  pointer-events: none;
-  transition: 0.5s;
-  -webkit-transition: 0.5s;
-  -moz-transition: 0.5s;
-  -ms-transition: 0.5s;
-  -o-transition: 0.5s;
 }
 
-.suit {
-  object-position: left;
+@media (max-width: 1024px) {
+  .card {
+    flex: 1 1 calc(33.33% - 20px); /* Lebar fleksibel, 3 kartu per baris */
+  }
+}
+
+@media (max-width: 768px) {
+  .card {
+    flex: 1 1 calc(50% - 20px); /* Lebar fleksibel, 2 kartu per baris */
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    flex: 1 1 100%; /* Lebar fleksibel, 1 kartu per baris */
+  }
 }
 
 .card .layer {

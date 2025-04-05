@@ -1,122 +1,129 @@
-// Example: Basic e-commerce functionality
-
 // Add to cart functionality
 const cart = [];
 
 function addToCart(productId, productName, productPrice) {
-    const product = { id: productId, name: productName, price: productPrice, quantity: 1 };
-    const existingProduct = cart.find(item => item.id === productId);
+  const product = {
+    id: productId,
+    name: productName,
+    price: productPrice,
+    quantity: 1,
+  };
+  const existingProduct = cart.find((item) => item.id === productId);
 
-    if (existingProduct) {
-        existingProduct.quantity += 1;
-    } else {
-        cart.push(product);
-    }
+  if (existingProduct) {
+    existingProduct.quantity += 1;
+  } else {
+    cart.push(product);
+  }
 
-    updateCartUI();
+  updateCartUI();
 }
 
-// Remove from cart functionality
 function removeFromCart(productId) {
-    const productIndex = cart.findIndex(item => item.id === productId);
+  const productIndex = cart.findIndex((item) => item.id === productId);
 
-    if (productIndex !== -1) {
-        cart.splice(productIndex, 1);
-    }
+  if (productIndex !== -1) {
+    cart.splice(productIndex, 1);
+  }
 
-    updateCartUI();
+  updateCartUI();
 }
 
 // Update cart UI
 function updateCartUI() {
-    const cartContainer = document.getElementById('cart-items');
-    cartContainer.innerHTML = '';
+  const cartContainer = document.getElementById("cart-items");
+  cartContainer.innerHTML = "";
 
-    cart.forEach(item => {
-        const cartItem = document.createElement('div');
-        cartItem.className = 'cart-item';
-        cartItem.innerHTML = `
-            <span>${item.name} (x${item.quantity}) - $${item.price * item.quantity}</span>
+  cart.forEach((item) => {
+    const cartItem = document.createElement("div");
+    cartItem.className = "cart-item";
+    cartItem.innerHTML = `
+            <span>${item.name} (x${item.quantity}) - $${
+      item.price * item.quantity
+    }</span>
             <button onclick="removeFromCart(${item.id})">Remove</button>
         `;
-        cartContainer.appendChild(cartItem);
-    });
+    cartContainer.appendChild(cartItem);
+  });
 
-    const totalPrice = cart.reduce((total, item) => total + item.price * item.quantity, 0);
-    document.getElementById('total-price').textContent = `Total: $${totalPrice}`;
+  const totalPrice = cart.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  );
+  document.getElementById("total-price").textContent = `Total: $${totalPrice}`;
 }
 
 // Example usage (adjust based on your HTML structure)
-document.querySelectorAll('.add-to-cart-btn').forEach(button => {
-    button.addEventListener('click', () => {
-        const productId = button.dataset.id;
-        const productName = button.dataset.name;
-        const productPrice = parseFloat(button.dataset.price);
+document.querySelectorAll(".add-to-cart-btn").forEach((button) => {
+  button.addEventListener("click", () => {
+    const productId = button.dataset.id;
+    const productName = button.dataset.name;
+    const productPrice = parseFloat(button.dataset.price);
 
-        addToCart(productId, productName, productPrice);
-    });
+    addToCart(productId, productName, productPrice);
+  });
 });
 
 // Swiper functionality
-const product = document.querySelector('.product');
+const product = document.querySelector(".product");
 
 let isDragging = false;
 let startX;
 let scrollLeft;
 
-product.addEventListener('mousedown', (e) => {
+product.addEventListener("mousedown", (e) => {
   isDragging = true;
-  product.classList.add('active'); // Tambahkan class untuk efek kursor
+  product.classList.add("active");
   startX = e.pageX - product.offsetLeft;
   scrollLeft = product.scrollLeft;
 });
 
-product.addEventListener('mouseleave', () => {
+product.addEventListener("mouseleave", () => {
   isDragging = false;
-  product.classList.remove('active');
+  product.classList.remove("active");
 });
 
-product.addEventListener('mouseup', () => {
+product.addEventListener("mouseup", () => {
   isDragging = false;
-  product.classList.remove('active');
+  product.classList.remove("active");
 });
 
-product.addEventListener('mousemove', (e) => {
-  if (!isDragging) return; // Hentikan jika tidak sedang dragging
+product.addEventListener("mousemove", (e) => {
+  if (!isDragging) return;
   e.preventDefault();
   const x = e.pageX - product.offsetLeft;
-  const walk = (x - startX) * 2; // Kecepatan scroll (sesuaikan nilai)
+  const walk = (x - startX) * 2; 
   product.scrollLeft = scrollLeft - walk;
 });
 
-const productList = document.querySelector('.product-list');
+const productList = document.querySelector(".product-list");
 
-productList.addEventListener('mousedown', (e) => {
-  console.log('Mouse down');
+productList.addEventListener("mousedown", (e) => {
+  console.log("Mouse down");
   isDragging = true;
-  productList.classList.add('active'); // Tambahkan class untuk efek kursor
+  productList.classList.add("active");
   startX = e.pageX - productList.offsetLeft;
   scrollLeft = productList.scrollLeft;
 });
 
-productList.addEventListener('mouseleave', () => {
+productList.addEventListener("mouseleave", () => {
   isDragging = false;
-  productList.classList.remove('active');
+  productList.classList.remove("active");
 });
 
-productList.addEventListener('mouseup', () => {
+productList.addEventListener("mouseup", () => {
   isDragging = false;
-  productList.classList.remove('active');
+  productList.classList.remove("active");
 });
 
-productList.addEventListener('mousemove', (e) => {
-  if (!isDragging) return; // Hentikan jika tidak sedang dragging
+productList.addEventListener("mousemove", (e) => {
+  if (!isDragging) return;
   e.preventDefault();
   const x = e.pageX - productList.offsetLeft;
-  const walk = (x - startX) * 2; // Kecepatan scroll (sesuaikan nilai)
+  const walk = (x - startX) * 2;
   productList.scrollLeft = scrollLeft - walk;
 });
 
-document.querySelectorAll('.product img').forEach((img) => {
-  img.style.pointerEvents = 'none';
+document.querySelectorAll(".product img").forEach((img) => {
+  img.style.pointerEvents = "none";
 });
